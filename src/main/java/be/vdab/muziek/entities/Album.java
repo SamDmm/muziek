@@ -1,5 +1,11 @@
 package be.vdab.muziek.entities;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import be.vdab.muziek.valueObjects.Track;
 
 @Entity
 @Table (name = "albums")
@@ -22,10 +31,15 @@ public class Album {
 	@JoinColumn(name = "artiestId")
 	private Artiest artiest;
 	private String naam;
+	@ElementCollection
+	@CollectionTable(name = "tracks", joinColumns = @JoinColumn(name = "albumid"))
+	@OrderBy("naam")
+	private Set<Track> tracks;
 	
 	public Album(Artiest artiest, String naam) {
 		this.artiest = artiest;
 		this.naam = naam;
+		this.tracks = new LinkedHashSet<>();
 	}
 	protected Album() {
 	}
@@ -38,5 +52,8 @@ public class Album {
 	}
 	public String getNaam() {
 		return naam;
+	}
+	public Set<Track> getTracks() {
+		return Collections.unmodifiableSet(tracks);
 	}
 }

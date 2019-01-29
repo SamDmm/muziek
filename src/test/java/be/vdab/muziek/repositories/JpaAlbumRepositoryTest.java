@@ -3,6 +3,7 @@ package be.vdab.muziek.repositories;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringRunner;
 
 import be.vdab.muziek.entities.Album;
+import be.vdab.muziek.valueObjects.Track;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -26,6 +28,7 @@ import be.vdab.muziek.entities.Album;
 @Import(JpaAlbumRepository.class)
 @Sql("/insertArtiest.sql")
 @Sql("/insertAlbum.sql")
+@Sql("/insertTracks.sql")
 public class JpaAlbumRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
 	private JpaAlbumRepository repository;
@@ -50,6 +53,12 @@ public class JpaAlbumRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	public void read() {
 		Album album = repository.read(idVanTestAlbum()).get();
 		assertEquals("test", album.getNaam());
+	}
+	@Test
+	public void tracksLezen() {
+		Album album = repository.read(idVanTestAlbum()).get();
+		assertEquals(2, album.getTracks().size());
+		assertTrue(album.getTracks().contains(new Track("test", BigDecimal.ONE)));
 	}
 
 }
