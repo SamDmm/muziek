@@ -1,0 +1,8 @@
+@charset "ISO-8859-1";
+body {
+	background-color: #a5e0ad;
+}
+th, td {
+	text-align: left;
+	padding: 15px;
+}

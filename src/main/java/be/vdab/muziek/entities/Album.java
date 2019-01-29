@@ -7,11 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 
 @Entity
 @Table (name = "albums")
+@NamedEntityGraph(name = Album.MET_ARTIEST, attributeNodes = @NamedAttributeNode("artiest"))
 public class Album {
+	public static final String MET_ARTIEST = "Album.metArtiest";
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,9 +39,4 @@ public class Album {
 	public String getNaam() {
 		return naam;
 	}
-	
-	public void setArtiest(Artiest artiest) {
-		
-	}
-	
 }

@@ -1,6 +1,7 @@
 package be.vdab.muziek.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -18,7 +19,11 @@ class JpaAlbumRepository implements AlbumRepository {
 
 	@Override
 	public List<Album> findAll() {
-		return manager.createQuery("select a from Album a order by a.naam", Album.class).getResultList();
+		return manager.createQuery("select a from Album a order by a.naam", Album.class).setHint("javax.persistence.loadgraph", manager.createEntityGraph(Album.MET_ARTIEST)).getResultList();
+	}
+	@Override
+	public Optional<Album> read(long id) {
+		return Optional.ofNullable(manager.find(Album.class, id));
 	}
 
 }
