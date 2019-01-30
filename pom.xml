@@ -12,7 +12,7 @@
 	<artifactId>muziek</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>muziek</name>
-	<description>Demo project for Spring Boot</description>
+	<description>albums en nummers opzoeken in database</description>
 
 	<properties>
 		<java.version>1.8</java.version>
