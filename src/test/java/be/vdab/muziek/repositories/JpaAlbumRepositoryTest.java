@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringRunner;
 
 import be.vdab.muziek.entities.Album;
-import be.vdab.muziek.valueObjects.Track;
+import be.vdab.muziek.valueobjects.Track;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -30,15 +30,19 @@ import be.vdab.muziek.valueObjects.Track;
 @Sql("/insertAlbum.sql")
 @Sql("/insertTracks.sql")
 public class JpaAlbumRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
+	private static final String ALBUMS = "albums";
 	@Autowired
 	private JpaAlbumRepository repository;
 	@Autowired
 	private EntityManager manager;
+	private final long idVanTestAlbum() {
+		return super.jdbcTemplate.queryForObject("select id from albums where naam='test';", Long.class);
+	}
 	@Test
 	public void findAll() {
 		List<Album> albums = repository.findAll();
 		manager.clear();
-		assertEquals(super.countRowsInTable("albums"), albums.size());
+		assertEquals(super.countRowsInTable(ALBUMS), albums.size());
 		String vorigeNaam = "";
 		for (Album album : albums) {
 			assertTrue(vorigeNaam.compareToIgnoreCase(album.getNaam()) <= 0);
@@ -46,13 +50,12 @@ public class JpaAlbumRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 			System.out.println(album.getNaam() + " : " + album.getArtiest().getNaam());
 		}
 	}
-	private final long idVanTestAlbum() {
-		return super.jdbcTemplate.queryForObject("select id from albums where naam='test';", Long.class);
-	}
 	@Test
 	public void read() {
 		Album album = repository.read(idVanTestAlbum()).get();
 		assertEquals("test", album.getNaam());
+		assertEquals("test", album.getArtiest().getNaam());
+		assertEquals(0, BigDecimal.valueOf(11).compareTo(album.getTijd()));
 	}
 	@Test
 	public void tracksLezen() {

@@ -6,9 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<vdab:head title="Welkom"/>
+  <vdab:head title="Welkom"/>
 </head>
 <body>
+	<c:if test="${not empty param.fout}">
+	  <div class='albumNietGevondenFout'>${param.fout}</div>
+	</c:if>
+	<h1>Albumlijst</h1>
     <table>
       <tr>
         <th>Album</th>

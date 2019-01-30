@@ -1,4 +1,4 @@
-package be.vdab.muziek.valueObjects;
+package be.vdab.muziek.valueobjects;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package be.vdab.muziek.valueObjects;
+package be.vdab.muziek.valueobjects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import be.vdab.muziek.valueobjects.Track;
 
 public class TrackTest {
 	private Track track1;

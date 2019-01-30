@@ -9,7 +9,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "artiesten")
 public class Artiest {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String naam;
 	

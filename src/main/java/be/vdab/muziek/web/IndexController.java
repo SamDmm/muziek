@@ -11,12 +11,12 @@ import be.vdab.muziek.repositories.AlbumRepository;
 @RequestMapping("/")
 class IndexController {
 	private static final String INDEX_VIEW = "index";
-	private final AlbumRepository albumRepository;
-	IndexController(AlbumRepository albumRepository) {
-		this.albumRepository = albumRepository;
+	private final AlbumRepository albumService;
+	IndexController(AlbumRepository albumService) {
+		this.albumService = albumService;
 	}
 	@GetMapping
 	ModelAndView startPagina() {
-		return new ModelAndView(INDEX_VIEW, "albums", albumRepository.findAll());
+		return new ModelAndView(INDEX_VIEW, "albums", albumService.findAll());
 	}
 }

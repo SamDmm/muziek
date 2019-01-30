@@ -1,8 +1,25 @@
 @charset "ISO-8859-1";
+
 body {
 	background-color: #a5e0ad;
+}
+table {
+	border-collapse: collapse;
+}
+thead tr th {
+	border-bottom: 3px solid black;
+}
+tfoot {
+	font-weight: bold;
+}
+tfoot tr td {
+	border-top: 1px solid black;
 }
 th, td {
 	text-align: left;
 	padding-right:15px;
+}
+div.albumNietGevondenFout {
+	font-size: 30px;
+	color: #a80000;
 }
